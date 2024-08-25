@@ -9,7 +9,7 @@ const App = () => {
         try {
             const parsedData = JSON.parse(jsonInput);
 
-            const response = await axios.post('https://placement-backend-two.vercel.app/bfhl', { data: parsedData.data });
+            const response = await axios.post('https://placement-backend-xd7v.vercel.app/bfhl', { data: parsedData.data });
 
             setResponseData(response.data);
         } catch (error) {
