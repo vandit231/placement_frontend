@@ -18,7 +18,7 @@ const App = () => {
             }
 
             // Make POST request with parsed JSON data
-            const response = await axios.post('https://vercel.com/vandit-sharmas-projects/placement-backend-sd55/4KCTykoxStL6529nJQNRf7ben4Na/bfhl', parsedData);
+            const response = await axios.post('https://placement-backend-sd55.vercel.app/bfhl', parsedData);
             
             setResponseData(response.data);
             setError('');
