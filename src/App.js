@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [jsonInput, setJsonInput] = useState('');
+    const [responseData, setResponseData] = useState(null);
+
+    const handleSubmit = async () => {
+        try {
+            const parsedData = JSON.parse(jsonInput);
+
+            const response = await axios.post('http://localhost:3000/bfhl', { data: parsedData.data });
+
+            setResponseData(response.data);
+        } catch (error) {
+            console.error('Error submitting JSON:', error);
+        }
+    };
+
+    return (
+        <div>
+            <h1>{responseData?.roll_number || 'ABCD1234'}</h1>
+            <textarea
+                value={jsonInput}
+                onChange={e => setJsonInput(e.target.value)}
+                placeholder="Enter JSON"
+                rows="10"
+                cols="50"
+            />
+            <br />
+            <button onClick={handleSubmit}>Submit</button>
+            {responseData && (
+                <div>
+                    <h3>Response:</h3>
+                    <pre>{JSON.stringify(responseData, null, 2)}</pre>
+                </div>
+            )}
+        </div>
+    );
+};
 
 export default App;
